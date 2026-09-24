@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Generating Maps in RoadRunner - CARLA Simulator</title>
+    <title>Quickstart extras - CARLA Simulator</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Generating Maps in RoadRunner";
-        var mkdocs_page_input_path = "tuto_M_generate_map.md";
+        var mkdocs_page_name = "Quickstart extras";
+        var mkdocs_page_input_path = "ext_quickstart.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -158,9 +158,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Generating Maps in RoadRunner</li>
+      <li class="breadcrumb-item active">Quickstart extras</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/carla-simulator/carla/edit/master/Docs/tuto_M_generate_map.md"> 编辑页面</a>
+          <a href="https://github.com/carla-simulator/carla/edit/master/Docs/ext_quickstart.md"> 编辑页面</a>
     </li>
   </ul>
   <hr/>
@@ -168,111 +168,58 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="generating-maps-in-roadrunner">Generating Maps in RoadRunner</h1>
-<p>RoadRunner is the recommended software to create maps to be imported into CARLA. This guide outlines what RoadRunner is, things to consider when building the map and how to export custom maps ready for importing into CARLA. </p>
+                <h1 id="quickstart-extras">Quickstart extras</h1>
+<p>The following sections contain additional options and details for installing and running a packaged version of the CARLA simulator.</p>
 <ul>
-<li><a href="#introduction-to-roadrunner"><strong>Introduction to RoadRunner</strong></a></li>
-<li><a href="#before-you-start"><strong>Before you start</strong></a></li>
-<li><a href="#build-a-map-in-roadrunner"><strong>Build a map in RoadRunner</strong></a></li>
-<li><a href="#export-a-map-in-roadrunner"><strong>Export a map in RoadRunner</strong></a></li>
-<li><a href="#next-steps"><strong>Next steps</strong></a></li>
+<li><strong><a href="#command-line-options">Command-line options</a></strong>  </li>
+<li><strong><a href="#config-script">Config script</a></strong></li>
+<li><strong><a href="#import-additional-assets">Import additional assets</a></strong>  </li>
 </ul>
 <hr />
-<h2 id="introduction-to-roadrunner">Introduction to RoadRunner</h2>
-<p>RoadRunner is an interactive editor that lets you design 3D scenes for simulating and testing automated driving systems. It can be used to create road layouts and accompanying OpenDRIVE and geometry information. Find out more about RoadRunner <a href="https://www.mathworks.com/products/roadrunner.html">here</a>.</p>
-<p>RoadRunner is part of the MATLAB Campus-Wide Licenses, so many universities can provide unlimited academic access. <a href="https://www.mathworks.com/academia/tah-support-program/eligibility.html">Check</a> if your university has access. Reach out to <em>automated-driving@mathworks.com</em> for any questions or troubles regarding accessibility. There is also a <a href="https://www.mathworks.com/products/roadrunner.html">trial version</a> available.</p>
-<p>A license for RoadRunner is also available to everyone participating in the CARLA Leaderboard. Click <a href="https://www.mathworks.com/academia/student-competitions/carla-autonomous-driving-challenge.html">here</a> for more information.</p>
-<hr />
-<h2 id="before-you-start">Before you start</h2>
-<p>You will need to install RoadRunner. You can follow the <a href="https://www.mathworks.com/help/roadrunner/ug/install-and-activate-roadrunner.html">installation guide</a> at the Mathworks website.   </p>
-<hr />
-<h2 id="build-a-map-in-roadrunner">Build a map in RoadRunner</h2>
-<p>The specifics of how to build a map in RoadRunner go beyond the scope of this guide, however, there is an introductory tutorial series available on the <a href="https://www.mathworks.com/solutions/automated-driving/roadrunner-tutorial.html">MathWorks website</a> and there are video tutorials for specific actions available in the <a href="https://www.mathworks.com/support/search.html?fq=asset_type_name:video%20category:roadrunner/index&amp;page=1&amp;s_tid=CRUX_topnav">RoadRunner documentation</a>.</p>
-<p><strong>Keep in mind that a map heavy with props can slow the import process significantly.</strong> This is because Unreal Engine needs to convert every mesh to an Unreal asset. If you plan to import your map into a source build version of CARLA, we highly recommend that you only create the road layout in RoadRunner and leave any customization until after the map has been imported into Unreal Engine. CARLA provides several tools that you can use in the Unreal Engine editor to simplify the customization process.</p>
-<hr />
-<h2 id="export-a-map-in-roadrunner">Export a map in RoadRunner</h2>
-<p>Below is a basic guideline to export your custom map from RoadRunner. You can find more detailed information about how to export to CARLA in <a href="https://www.mathworks.com/help/roadrunner/ug/Exporting-to-CARLA.html">MathWorks' documentation</a>.</p>
-<p>Once you have made your map in RoadRunner you will be able to export it. Be aware that <strong>the road layout cannot be modified after it has been exported.</strong> Before exporting, ensure that:</p>
+<h2 id="command-line-options">Command-line options</h2>
+<p>There are some configuration options available when launching CARLA and they can be used as follows:</p>
+<pre><code class="language-sh">    ./CarlaUE4.sh -carla-rpc-port=3000
+</code></pre>
 <ul>
-<li>The map is centered at (0,0) to ensure the map can be visualized correctly in Unreal Engine.</li>
-<li>The map definition is correct.</li>
-<li>The map validation is correct, paying close attention to connections and geometries.</li>
+<li><code>--ros2</code> - Launch CARLA with the native ROS2 connector enabled</li>
+<li><code>--rmw=&lt;middleware&gt;</code> - Select the ROS2 middleware (RMW) used by the native connector. Accepted values: <code>fastdds</code>, <code>cyclonedds</code>, <code>zenoh</code>. Default: <code>fastdds</code>. Only valid together with <code>--ros2</code>. CycloneDDS and Zenoh are Linux only; on Windows only <code>fastdds</code> is supported.</li>
+<li><code>--ros-domain-id=&lt;N&gt;</code> - Set the ROS2 domain id (<code>N</code> must be an integer in the range 0-232) used by the native connector. Only valid together with <code>--ros2</code>. When omitted, the server falls back to the <code>ROS_DOMAIN_ID</code> environment variable if it is defined, and otherwise uses the default domain 0. The resolution order is <code>--ros-domain-id</code>, then <code>ROS_DOMAIN_ID</code>, then 0. Out-of-range values (on either the option or the environment variable) are ignored and the next source is used.</li>
+<li><code>-carla-rpc-port=N</code> - Listen for client connections at port <code>N</code>. Streaming port is set to <code>N+1</code> by default.  </li>
+<li><code>-carla-streaming-port=N</code> - Specify the port for sensor data streaming. Use 0 to get a random unused port. The second port will be automatically set to <code>N+1</code>.  </li>
+<li><code>-quality-level={Low,Epic}</code> - Change graphics quality level. Find out more in <a href="../adv_rendering_options/">rendering options</a>.  </li>
+<li><strong><a href="https://docs.unrealengine.com/en-US/Programming/Basics/CommandLineArguments">List of Unreal Engine 4 command-line arguments</a>.</strong> - There are a lot of options provided by Unreal Engine however not all of these are available in CARLA.  </li>
 </ul>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p><img alt="CheckGeometry" src="../img/check_geometry.jpg" /></p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Once the map is ready, click on the <code>OpenDRIVE Preview Tool</code> button to visualize the OpenDRIVE road network and give everything one last check.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p><img alt="checkopen" src="../img/check_open.jpg" /></p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><em>OpenDrive Preview Tool</em> makes it easier to test the integrity of the map. If there are any errors with junctions, click on <code>Maneuver Tool</code>, and <code>Rebuild Maneuver Roads</code>.</p>
-</div>
-<p>When you are ready to export:</p>
-<p><strong>1.</strong> Export the scene using the CARLA option:</p>
+<hr />
+<h2 id="config-script">Config script</h2>
+<p>The script <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/util/config.py"><code>PythonAPI/util/config.py</code></a> provides more configuration options and should be run when the server has been started:</p>
+<pre><code class="language-sh">./config.py --no-rendering      # Disable rendering
+./config.py --map Town05        # Change map
+./config.py --weather ClearNoon # Change weather
+
+./config.py --help # Check all the available configuration options
+</code></pre>
+<hr />
+<h2 id="import-additional-assets">Import additional assets</h2>
+<p>Each release has its own additional package of extra assets and maps. These are stored separately to reduce the size of the build, so they can only be imported after the main package has been installed. </p>
+<p><strong>1.</strong> <a href="https://github.com/carla-simulator/carla/blob/master/Docs/download.md">Download</a> the appropriate package for your desired version of CARLA.</p>
+<p><strong>2.</strong> Import the assets:</p>
 <ul>
-<li>In the main toolbar, select <code>File</code> -&gt; <code>Export</code> -&gt; <code>CARLA (.fbx, .xodr, .rrdata.xml)</code></li>
+<li><strong>On Linux</strong>:
+Move the compressed archive to the <em>Import</em> folder and run the following script to extract the contents:  </li>
 </ul>
-<p><strong>2.</strong> In the window that pops up:</p>
-<blockquote>
+<pre><code class="language-sh">cd path/to/carla/root
+
+./ImportAssets.sh
+</code></pre>
 <ul>
 <li>
-<p>Check the following options:</p>
+<p><strong>On Windows</strong>:</p>
 <ul>
-<li><em>Split by Segmentation</em>: Divides the mesh by semantic segmentation.</li>
-<li><em>Power of Two Texture Dimensions</em>: Improves performance.</li>
-<li><em>Embed Textures</em>: Ensures textures are embedded in the mesh.</li>
-<li><em>Export to Tiles</em>: Choose the size of the tile or leave unchecked for only one piece.</li>
-</ul>
-</li>
-<li>
-<p>Leave unchecked:</p>
-<ul>
-<li><em>Export Individual Tiles</em>: Generates one <code>.fbx</code> file with all map pieces. </li>
+<li>Extract the contents directly in the root folder. </li>
 </ul>
 </li>
 </ul>
-<blockquote>
-<blockquote>
-<blockquote>
-<p><img alt="roadrunner_export" src="../img/roadrunner_export.png" /></p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<p><strong>3.</strong> Choose the directory where you want to export your files and click <code>Export</code>. This will generate <code>&lt;mapName&gt;.fbx</code> and <code>&lt;mapName&gt;.xodr</code> files among others. </p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Make sure that the <code>.xodr</code> and the <code>.fbx</code> files have the same name.  </p>
-</div>
 <hr />
-<h2 id="next-steps">Next steps</h2>
-<p>You are now ready to import your map into CARLA. The next step will depend upon the kind of CARLA installation you are using:</p>
-<ul>
-<li><strong>For users of CARLA built from source</strong>, follow the guide <a href="../tuto_M_add_map_source/"><strong>here</strong></a>.</li>
-<li><strong>For users of a packaged (binary) version of CARLA</strong>, follow the guide <a href="../tuto_M_add_map_package/"><strong>here</strong></a>.</li>
-</ul>
-<hr />
-<p>If you have any questions about the process, then you can ask in the <a href="https://github.com/carla-simulator/carla/discussions">forum</a>.</p>
-<div class="build-buttons">
-<p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
-</p>
-</div>
               
             </div>
           </div><footer>
